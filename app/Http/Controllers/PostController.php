@@ -49,26 +49,39 @@ class PostController extends Controller
     public function show($postId)
     {
         //query in db select * from posts where id = $postId
-        $allPosts = Post::all()->id($postId); //to retrieve all records
+        $allPosts = Post::all(); //to retrieve all records
 
         return view('posts.show', [
             'allPosts' => $allPosts
         ]);
     }
 
+    public function view($postId)
+    {
+        $post =post::find($postId);
+        return view('posts.view',['post' => $post]);
+    }
+
      public function edit($postId)
     {
         //query in db select * from posts where id = $postId
-        return view('posts.update',['postID' => $postId]);
+        $post =post::find($postId);
+        return view('posts.edit',['posts' => $post]);
     }
 
-    public function update($postId)
+    public function update(Request $req)
     {
-        return $postId;
+        $data=Post::find($req->id);
+        $data->title=$req->title;
+        $data->description=$req->description;
+        $data->save();
+        return redirect()->route('posts.index');
     }
 
     public function destroy($postId)
     {
-        return $postId;
+        $data=Post::find($postId);
+        $data->delete();
+        return redirect()->route(('posts.index'));
     }
 }
