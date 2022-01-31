@@ -14,11 +14,14 @@ class PostController extends Controller
     public function index()
     {
         (Carbon::now()->toDateString());
+
+      
+       
         // $allPosts = Post::where('title','Test')->get();
         $allPosts = Post::all(); //to retrieve all records
 
         return view('posts.index', [
-            'allPosts' => $allPosts
+            'allPosts' => $allPosts,
         ]);
     }
 
