@@ -25,7 +25,7 @@ class StorePostRequest extends FormRequest
     {
        return [
             'title' => ['required', 'min:3'],
-            'description' => ['required', 'min:5'],
+            'description' => ['required', 'min:10'],
         ];
        
     }
@@ -41,5 +41,5 @@ class StorePostRequest extends FormRequest
         'title.required' => 'A title is required',
         'body.required' => 'A message is required',
     ];
-}
+    }
 }

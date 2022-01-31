@@ -19,17 +19,19 @@
             </thead>
             <tbody>
              @foreach ($allPosts as $post)
-             {{-- @dd($post->user, $post->user()) --}}
               <tr>
                 <th scope="row">{{ $post->id }}</th>
                 <td>{{ $post->title }}</td>
                 <td>{{ isset($post->user) ? $post->user->name : 'Not Found' }}</td>
-                {{-- @dd($post->created_at) carbon object --}}
-                <td>{{ $post->created_at }}</td>
-                <td>
-                    <a href="{{route('posts.view'   ,$post->id)}}" class="btn btn-info">View</a>
-                    <a href="{{route('posts.edit'   ,$post->id)}}"class="btn btn-primary">Edit</a>
-                    <a href="{{route('posts.destroy',$post->id)}}" class="btn btn-danger">Delete</a>
+                <td>{{ $post->created_at->toDateString()}}</td>
+                <td class="row">
+                     <a href="{{ route('posts.show', $post->id) }}" class="col-2 me-2 btn btn-success">View</a>
+                      <a href="{{ route('posts.edit', $post->id) }}" class="col-2 btn btn-primary">Edit</a>
+                    <form class="col-2" method="post" action="{{ route('posts.destroy', $post->id) }}">
+                        @csrf
+                        @method ('delete')
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form> 
                 </td>
               </tr>
               @endforeach

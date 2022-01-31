@@ -6,12 +6,14 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\User;
 use App\Http\Requests\StorePostRequest;
+use Carbon\Carbon;
 
 
 class PostController extends Controller
 {
     public function index()
     {
+        (Carbon::now()->toDateString());
         // $allPosts = Post::where('title','Test')->get();
         $allPosts = Post::all(); //to retrieve all records
 
@@ -31,8 +33,8 @@ class PostController extends Controller
 
     public function store(StorePostRequest $request)
     {
-        $data = request()->all();
-
+        // $data = request()->all();
+        $data = $request->all();
         // Post::create($data);
         Post::create([
             'title' => $data['title'],
@@ -49,36 +51,41 @@ class PostController extends Controller
     }
 
     public function show($postId)
-    {
-        //query in db select * from posts where id = $postId
-        $allPosts = Post::all(); //to retrieve all records
-
+        {
+        $post = POST::find($postId);
         return view('posts.show', [
-            'allPosts' => $allPosts
+        'post' => $post
+        ]);
+        }
+
+        public function edit($postId)
+        {
+        $post = Post::find($postId);
+        $users = User::all();
+        
+        return view('posts.edit', [
+        'post' => $post,
+        'users' => $users
+        
         ]);
     }
 
-    public function view($postId)
+    public function update ($postId,StorePostRequest $request)
     {
-        $post =post::find($postId);
-        return view('posts.view',['post' => $post]);
-    }
+      $data = $request()->all();
+    
+      POST::find($postId)->update([
 
-     public function edit($postId)
-    {
-        //query in db select * from posts where id = $postId
-        $post =post::find($postId);
-        return view('posts.edit',['posts' => $post]);
-    }
+    'title' => $data['title'],
+    'description' => $data['description'],
+    'user_id' => $data['post_creator'],
 
-    public function update(Request $req)
-    {
-        $data=Post::find($req->id);
-        $data->title=$req->title;
-        $data->description=$req->description;
-        $data->save();
-        return redirect()->route('posts.index');
+    ]);
+
+    return redirect()->route('posts.index');
     }
+        
+        
 
     public function destroy($postId)
     {
