@@ -1,8 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\User;
 use App\Http\Requests\StorePostRequest;
@@ -73,9 +71,9 @@ class PostController extends Controller
         ]);
     }
 
-    public function update ($postId,StorePostRequest $request)
+    public function update ($postId, StorePostRequest $request)
     {
-      $data = $request()->all();
+      $data = $request->all();
     
       POST::find($postId)->update([
 
