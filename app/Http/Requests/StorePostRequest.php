@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StorePostRequest extends FormRequest
@@ -24,7 +26,7 @@ class StorePostRequest extends FormRequest
     public function rules()
     {
        return [
-            'title' => ['required', 'min:3'],
+            'title' => ['required', 'min:3',Rule::unique('posts')],
             'description' => ['required', 'min:10'],
         ];
        
