@@ -16,7 +16,7 @@ class PostController extends Controller
       
        
         // $allPosts = Post::where('title','Test')->get();
-        $allPosts = Post::all(); //to retrieve all records
+        $allPosts = Post::SimplePaginate(3); //to retrieve all records
 
         return view('posts.index', [
             'allPosts' => $allPosts,

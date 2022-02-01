@@ -12,6 +12,7 @@
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">Title</th>
+                <th scope="col">Slug</th>
                 <th scope="col">Posted By</th>
                 <th scope="col">Created At</th>
                 <th scope="col">Actions</th>
@@ -22,6 +23,7 @@
               <tr>
                 <th scope="row">{{ $post->id }}</th>
                 <td>{{ $post->title }}</td>
+                <td>{{ $post->slug }}</td>
                 <td>{{ isset($post->user) ? $post->user->name : 'Not Found' }}</td>
                 <td>{{ $post->created_at->toDateString()}}</td>
                 <td class="row">
@@ -40,15 +42,13 @@
             </tbody>
           </table>
 
-          <nav aria-label="Page navigation example">
-          <ul class="pagination">
-            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-          </ul>
-        </nav>
+          <ul class="pagination">{{ $allPosts->links() }}</ul> 
+
+          <style>
+          .w-5{
+          display:none;
+          }
+          </style> 
    
 @endsection
     
