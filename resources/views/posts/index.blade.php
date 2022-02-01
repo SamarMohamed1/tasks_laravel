@@ -44,11 +44,11 @@
 
           <ul class="pagination">{{ $allPosts->links() }}</ul> 
 
-          <style>
+          <!-- <style>
           .w-5{
           display:none;
           }
-          </style> 
+          </style>  -->
    
 @endsection
     
