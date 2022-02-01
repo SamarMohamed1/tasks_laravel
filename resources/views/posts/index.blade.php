@@ -25,7 +25,7 @@
                 <td>{{ isset($post->user) ? $post->user->name : 'Not Found' }}</td>
                 <td>{{ $post->created_at->toDateString()}}</td>
                 <td class="row">
-                     <a href="{{ route('posts.show', $post->id) }}" class="col-2 me-2 btn btn-success">View</a>
+                     <a href="{{ route('posts.show', $post->slug) }}" class="col-2 me-2 btn btn-success">View</a>
                       <a href="{{ route('posts.edit', $post->id) }}" class="col-2 btn btn-primary">Edit</a>
                     <form class="col-2" method="post" action="{{ route('posts.destroy', $post->id) }}">
                         @csrf
