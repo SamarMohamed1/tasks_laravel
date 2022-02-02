@@ -12,9 +12,6 @@ class PostController extends Controller
     public function index()
     {
         (Carbon::now()->toDateString());
-
-      
-       
         // $allPosts = Post::where('title','Test')->get();
         $allPosts = Post::SimplePaginate(3); //to retrieve all records
 
@@ -34,36 +31,25 @@ class PostController extends Controller
 
     public function store(StorePostRequest $request)
     {
-        // $data = request()->all();
-        $data = $request->all();
-        // Post::create($data);
-        Post::create([
+         $data = $request->all();
+         Post::create([
             'title' => $data['title'],
             'description' => $data['description'],
             'user_id' => $data['post_creator'],
-            // will be ignored cause they aren't in fillable
-            // 'un_known_column' => 'ajshdahsouid',
-            // 'id' => 70,
-        ]);// insert into (title,descripotion) values ('asdasd')
-
-        // dd('test'); any logic after dd won't be executed
-        //the logic to store post in the db
+           
+        ]);
         return redirect()->route('posts.index');
-    }
+        }
 
-    // public function show($slug)
-    //     {
-    //     $post = POST::where($slug);
-    //     return view('posts.show', [
-    //     'post' => $post
-    //     ]);
-    //     }
+
 
         public function show($slug)
         {
         $post = Post::where('slug',$slug)->get();
         return view('posts.show',['post'=>$post]);
         } 
+
+
 
         public function edit($postId)
         {
@@ -75,29 +61,29 @@ class PostController extends Controller
         'users' => $users
         
         ]);
-    }
+        }
 
-    public function update ($postId, StorePostRequest $request)
-    {
-      $data = $request->all();
+
+
+        public function update ($postId, StorePostRequest $request)
+        {
+        $data = $request->all();
     
-      POST::find($postId)->update([
+        POST::find($postId)->update([
 
-    'title' => $data['title'],
-    'description' => $data['description'],
-    'user_id' => $data['post_creator'],
-
-    ]);
-
-    return redirect()->route('posts.index');
-    }
+        'title' => $data['title'],
+        'description' => $data['description'],
+        'user_id' => $data['post_creator'],
+        ]);
+        return redirect()->route('posts.index');
+        }
         
         
 
-    public function destroy($postId)
-    {
-        $data=Post::find($postId);
-        $data->delete();
-        return redirect()->route(('posts.index'));
-    }
+        public function destroy($postId)
+        {
+            $data=Post::find($postId);
+            $data->delete();
+            return redirect()->route(('posts.index'));
+        }
 }
